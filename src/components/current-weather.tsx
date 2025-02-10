@@ -17,7 +17,7 @@ const CurrentWeather = ({ data, locationName }: CurrentWeatherProps) => {
 
     const formatTemp = (temp: number) => `${Math.round(temp)}°`;
 
-    console.log(speed, "Speed");
+    console.log(speed, "speed");
     console.log(humidity, "humidity");
 
     return (

@@ -44,7 +44,7 @@ const useGeolocation = () => {
                     case error.PERMISSION_DENIED:
                         errorMessage = "Location permission denied. Please enable location access.";
                         break;
-                    case error.POSITION_UNAVAILABLE: // Fixed typo here
+                    case error.POSITION_UNAVAILABLE:
                         errorMessage = "Location information is unavailable.";
                         break;
                     case error.TIMEOUT:
