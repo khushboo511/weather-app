@@ -31,7 +31,7 @@ export interface Coordinates {
       humidity: number;
     };
     wind: {
-      speed: number;
+      speed: number; 
       deg: number;
     };
     sys: {

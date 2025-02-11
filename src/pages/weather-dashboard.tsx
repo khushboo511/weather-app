@@ -9,6 +9,7 @@ import useGeolocation from "@/hooks/useGeolocation"
 import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from "@/hooks/useWeather";
 import { AlertTriangle, MapPin, RefreshCcw } from "lucide-react"
 import { FavoriteCities } from "@/components/favourite-cities";
+import { useEffect } from "react";
 
 const Dashboard = () => {
 
@@ -33,6 +34,10 @@ const Dashboard = () => {
       forecastQuery.refetch();
     }
   }
+
+  useEffect(()=> {
+    getLocation()
+  }, [getLocation])
 
   if (locationLoading) {
     return <WeatherSkeleton />;

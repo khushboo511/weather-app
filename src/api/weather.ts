@@ -53,14 +53,20 @@ class WeatherAPI {
       }
 
       async searchLocation(query: string): Promise<GeocodingResponse[]> {
-        const url = this.createUrl(`${API_CONFIG.GEO}/direct`, {
-          q: query,
-          limit: "5",
-        });
-        return this.fetchData<GeocodingResponse[]>(url);
+        try {
+          const url = this.createUrl(`${API_CONFIG.GEO}/direct`, {
+            q: query,
+            limit: "5",
+          });
+          const response = await this.fetchData<GeocodingResponse[]>(url);
+          console.log("Geocoding API Response:", response);
+          return response;
+        } catch (error) {
+          console.error("Failed to fetch location:", error);
+          return [];
+        }
       }
+      
     }
     
-    
-
 export const weatherAPI = new WeatherAPI();

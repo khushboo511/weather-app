@@ -1,5 +1,5 @@
 import { Coordinates } from '@/api/types';
-import  { useEffect, useState } from 'react';
+import  { useCallback, useState } from 'react';
 
 interface GeoLocationState {
     coordinates: Coordinates | null;
@@ -14,7 +14,7 @@ const useGeolocation = () => {
         isLoading: true,
     });
 
-    const getLocation = () => {
+    const getLocation = useCallback(() => {
         setLocationData((prev) => ({ ...prev, isLoading: true, error: null }));
 
         if (!navigator.geolocation) {
@@ -65,11 +65,7 @@ const useGeolocation = () => {
                 maximumAge: 0,
             }
         );
-    };
-
-    useEffect(() => {
-        getLocation();
-    }, []);
+    }, [setLocationData]);
 
     return {
         ...locationData,
