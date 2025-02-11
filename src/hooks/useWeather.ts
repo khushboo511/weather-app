@@ -49,15 +49,11 @@ export const useReverseGeocodeQuery = (coordinates: Coordinates | null) => {
 }
 
 export const useSearchLocationQuery = (query: string) => {
-  console.log("Querying for:", query);
-
   return useQuery({
     queryKey: WEATHER_KEYS.search(query),
     queryFn: async () => {
       if (!query) return null;
-      console.log("Calling API with query:", query);
       const result = await weatherAPI.searchLocation(query);
-      console.log("API Result:", result);
       return result;
     },
     enabled: query.length >= 3,

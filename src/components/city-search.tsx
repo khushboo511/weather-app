@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Search, Loader2, Clock, Star, XCircle } from "lucide-react";
+import debounce from "lodash.debounce"
 
 import {
   Command,
@@ -21,13 +22,34 @@ import { useFavorites } from "@/hooks/useFavourites";
 export function CitySearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("")
   const navigate = useNavigate();
 
-  const { data: locations, isLoading } = useSearchLocationQuery(query);
+  const { data: locations, isLoading } = useSearchLocationQuery(debouncedQuery);
   const { favourites } = useFavorites();
   const { history, clearHistory, addToHistory } = useSearchHistory();
   console.log("Locations", locations)
   console.log(favourites, "favorites")
+
+  const updateQuery = useCallback(
+    debounce((newQuery: string) => {
+      setDebouncedQuery(newQuery);
+    }, 300),
+    []
+  );
+
+  useEffect(() => {
+    updateQuery(query)
+  }, [query, updateQuery])
+
+  // useEffect(() => {
+  //   const handler = setTimeout(() => {
+  //     setDebouncedQuery(query);
+  //   }, 1000);
+
+  //   return () => clearTimeout(handler);
+  // }, [query]);
+
 
   const handleSelect = (cityData: string) => {
     const [lat, lon, name, country] = cityData.split("|");

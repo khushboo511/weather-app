@@ -49,7 +49,7 @@ import { FavoriteButton } from "@/components/favourite-button";
         </div>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-6">                                             
         <CurrentWeather data={weatherQuery.data} />
         <HourlyTemperature data={forecastQuery.data} />
         <div className="grid gap-6 md:grid-cols-2 items-start">

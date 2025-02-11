@@ -59,7 +59,6 @@ class WeatherAPI {
             limit: "5",
           });
           const response = await this.fetchData<GeocodingResponse[]>(url);
-          console.log("Geocoding API Response:", response);
           return response;
         } catch (error) {
           console.error("Failed to fetch location:", error);
